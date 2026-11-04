@@ -147,32 +147,8 @@ flowchart LR
 
 ---
 
-## Repository Structure
+## Portfolio Note
 
-```text
-.
-├── README.md
-├── logbook_parser.py
-├── requirements.txt
-├── .gitignore
-└── examples/
-    └── sample_logbook.txt
-```
+This repository is a **project overview only**. Implementation files, internal maintenance data, and runnable examples are intentionally not published. The description summarizes the engineering approach without providing proprietary source code.
 
-## Run Locally
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run the parser using the synthetic sample data:
-
-```bash
-python logbook_parser.py --input examples/sample_logbook.txt --output health_check_records.xlsx
-```
-
-The Excel output contains a `health_checks` sheet with **Check Date**, **Health Check Type**, and **Matched Text**.
-
-**Scope and limitations:** This is a focused text-processing example, not a validated equipment monitoring system. It detects mentions, not confirmed completed checks; date matching depends on the log layout; and same-date component deduplication may hide repeat events. Extraction accuracy and time savings have not been formally measured. All sample records are synthetic, and no private maintenance logs are included.
+**Scope and limitations:** The workflow identifies health check mentions rather than verifying completed maintenance events. Date matching depends on log layout, and date-component deduplication can suppress repeated events. Extraction accuracy and time savings have not been formally benchmarked.
