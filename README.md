@@ -1,14 +1,14 @@
-# ASML — Customer Support
+# Equipment Maintenance Data Automation
 
-**Role:** Customer Support Intern (Part-Time, 24 hrs/week)  
+**Role:** ASML Customer Support Intern (Part-Time, 24 hrs/week)  
 **When:** Nov 2025  
 **Location:** Taipei, Taiwan
 
-**Project:** Python automation for turning unstructured equipment maintenance logs into organized health check records.
+**Project:** Automated extraction and structuring of equipment maintenance records using Python.
 
-**Focus:** Text Extraction · Fuzzy Matching · Data Cleaning · Excel Reporting
+**Focus:** Python Automation · Text Processing · Fuzzy Matching · Data Cleaning · Excel Reporting
 
-> **Disclaimer:** This portfolio provides a high-level description of selected work. No proprietary source code, confidential data, screenshots, internal IDs, or system configurations from ASML are included in the current repository.
+> **Disclaimer:** This portfolio provides a high-level overview of selected engineering work. No proprietary source code, confidential data, internal documents, equipment identifiers, or system configurations from ASML are included in the current repository.
 
 ---
 
