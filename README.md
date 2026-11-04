@@ -1,4 +1,4 @@
-# Equipment Maintenance Data Automation
+# ASML-Equipment Maintenance Data Automation
 
 **Role:** ASML Customer Support Intern (Part-Time, 24 hrs/week)  
 **When:** Nov 2025  
