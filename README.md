@@ -1,100 +1,147 @@
 # Equipment Logbook Parser
 
-**Project:** Turn text-based equipment maintenance logs into organized Excel records.
+**Project:** Python automation for turning unstructured equipment maintenance logs into organized health check records.
 
-**Focus:** Python automation · text extraction · data cleaning · Excel reporting
+**Focus:** Text extraction · fuzzy matching · data cleaning · Excel reporting
 
 ---
 
 ## Project at a Glance
 
-| Stage | Problem | What I Built | Result |
+| Workstream | Core Challenge | Engineering Response | Outcome |
 |---|---|---|---|
-| **P1 — Define the Data** | Health check information is scattered across long text logs | Defined the date, component, and original text to capture | A consistent record format |
-| **P2 — Find Health Checks** | The same activity can be written in different ways | Combined keyword matching, fuzzy matching, and date lookup | Health check mentions found automatically |
-| **P3 — Organize Records** | Extracted text is inconsistent and may repeat | Classified WS/RS checks and removed repeated date–type matches | A clean, structured table |
-| **P4 — Export Results** | Manual copying into spreadsheets takes extra work | Generated a formatted Excel report | Records ready to review and filter |
+| **P1 — Problem Definition** | Years of maintenance notes are difficult to search and compare | Defined essential fields for health check tracking | A consistent record structure |
+| **P2 — Record Extraction** | Different wording and date layouts make manual searches unreliable | Combined keyword rules, fuzzy matching, and date lookup | Automatically identified health check mentions |
+| **P3 — Data Standardization** | Raw matches use different component names and can repeat | Classified WS/RS checks and consolidated repeated date–type matches | A structured, reviewable dataset |
+| **P4 — Report Automation** | Turning log notes into spreadsheets requires repetitive manual work | Built a Python-to-Excel export workflow | Reusable records for maintenance-history reviews |
 
 ---
 
-## End-to-End Workflow
+## End-to-End System Overview
 
 ```mermaid
 flowchart LR
-    A["TXT Maintenance Log"] --> B["Find Health Check Mentions"]
-    B --> C["Match Dates"]
-    C --> D["Classify WS / RS"]
+    A["Text Maintenance Logs"] --> B["P2 · Extract Health Check Mentions"]
+    B --> C["Find Associated Dates"]
+    C --> D["P3 · Standardize WS / RS Records"]
     D --> E["Remove Repeated Matches"]
-    E --> F["Excel Report"]
+    E --> F["P4 · Export Excel Report"]
 ```
 
-**In short:** read maintenance logs → find relevant entries → organize the information → export it to Excel.
+**Storyline:** define useful fields → extract relevant maintenance mentions → standardize the records → export results for review.
 
 ---
 
 ## Project Details
 
-### P1 — Define the Data
+### P1 — Problem Definition
 
-> **Question:** What information do we need from each maintenance entry?
+> **Key Question —** How can scattered maintenance notes be turned into records that are easy to review?
 
-Maintenance logs contain free-text notes rather than ready-to-use tables. I started by choosing three fields that make health check records easier to review:
+#### 1. Highlights
 
-- **Check Date:** When the log entry was recorded.
-- **Health Check Type:** Wafer Stage (**WS**), Reticle Stage (**RS**), or Unknown.
-- **Matched Text:** The original line that triggered extraction.
+- **Problem framing** — identified the manual work involved in finding health check entries across text-based logs.
+- **Data requirements** — defined three output fields: **check date, component type, and matched source text**.
 
-**Result:** Every extracted record follows the same format, making the output easier to sort and inspect.
+#### 2. Impact
 
-### P2 — Find Health Checks
+- Established a consistent data format for **text extraction → record cleaning → Excel reporting**.
 
-> **Question:** How do we find the same type of work when it is written differently?
+#### 3. Key Takeaway
 
-- Used **keyword matching** to find standard phrases such as “health check.”
-- Added **fuzzy matching (RapidFuzz)** to catch common spelling mistakes.
-- Used **regular expressions** to read dates from the log.
-- Linked a health check mention to a nearby date using rules based on the log layout.
+> Defining the output first made each processing step serve a clear purpose: easier review of maintenance history.
 
-**Result:** The script finds candidate health check records without manually searching each log entry.
+#### 4. Next
 
-### P3 — Organize Records
+**P2 → Record Extraction:** Find health check entries even when wording and spelling vary.
 
-> **Question:** How do we turn matched lines into a consistent table?
+---
 
-- Identified **WS** and **RS** from abbreviations or full component names.
-- Created separate rows when a line mentioned both components.
-- Kept the first match for each **date + component type** combination.
+### P2 — Record Extraction
 
-**Result:** Text matches become structured records that are easier to review.
+> **Key Question —** How can the script find health checks written in different ways?
 
-### P4 — Export Results
+#### 1. Highlights
 
-> **Question:** How do we make the extracted information usable?
+- **Flexible text matching** — combined keyword rules and **RapidFuzz** to catch common spelling variations.
+- **Date association** — used regular expressions and simple layout rules to connect each match to a nearby date.
 
-- Used **Pandas** to organize the records.
-- Used **OpenPyXL** to export dates and text to an Excel worksheet.
-- Added command-line options to change the input file, output file, and matching threshold.
+#### 2. Impact
 
-**Result:** A repeatable process produces an Excel report without manual copying and formatting.
+- Automated the search for health check mentions, replacing repetitive line-by-line lookup with a repeatable process.
+
+#### 3. Key Takeaway
+
+> Combining exact and approximate matching helps extract useful information from inconsistent operational notes.
+
+#### 4. Next
+
+**P3 → Data Standardization:** Turn matched text into consistent WS/RS records and handle repeated matches.
+
+---
+
+### P3 — Data Standardization
+
+> **Key Question —** How can raw text matches become a consistent dataset?
+
+#### 1. Highlights
+
+- **Component classification** — recognized **Wafer Stage (WS)** and **Reticle Stage (RS)** using abbreviations or full names.
+- **Record consolidation** — separated entries that mention both components and kept the first match for each **date + component** pair.
+
+#### 2. Impact
+
+- Converted scattered text matches into a structured table that can be **sorted, filtered, and reviewed**.
+
+#### 3. Key Takeaway
+
+> Standardized labels and clear duplicate rules make extracted records easier to use, although repeat events on the same day may be lost.
+
+#### 4. Next
+
+**P4 → Report Automation:** Export the structured records into an Excel report.
+
+---
+
+### P4 — Report Automation
+
+> **Key Question —** How can the extracted records be delivered without manual spreadsheet work?
+
+#### 1. Highlights
+
+- **Automated reporting** — used **Pandas and OpenPyXL** to produce Excel files with properly formatted dates.
+- **Reusable execution** — added command-line options for input file, output file, and matching threshold.
+
+#### 2. Impact
+
+- Built a repeatable **TXT → structured records → Excel** workflow for maintenance-history reviews.
+
+#### 3. Key Takeaway
+
+> A useful automation project connects data extraction to a simple output that people can inspect and reuse.
+
+#### 4. Next
+
+**Potential improvements:** Validate extraction accuracy and support additional log layouts before using the results for maintenance decisions.
 
 ---
 
 ## Key Engineering Takeaways
 
-- **Automated repetitive work:** Replaced line-by-line searching and spreadsheet copying with a Python workflow.
-- **Made text data usable:** Combined text matching, date lookup, and component classification to convert unstructured logs into a consistent table.
-- **Built for practical review:** Delivered an Excel output that can be filtered, checked, and used in later maintenance analysis.
+- **Workflow automation:** Replaced manual searching and spreadsheet transcription with a reusable Python script.
+- **Unstructured data processing:** Linked fuzzy text matching, date lookup, classification, and duplicate handling in one pipeline.
+- **Practical output:** Produced structured Excel records that support faster inspection and future analysis.
 
 ---
 
 ## Tech Stack
 
-| Area | Tools & Methods |
+| Area | Technologies / Methods |
 |---|---|
 | **Programming** | Python |
 | **Text Extraction** | Regular Expressions · RapidFuzz |
 | **Data Processing** | Pandas · Classification · Deduplication |
-| **Reporting** | OpenPyXL · Excel |
+| **Reporting** | OpenPyXL · Excel · Command-Line Arguments |
 
 ---
 
@@ -103,11 +150,11 @@ Maintenance logs contain free-text notes rather than ready-to-use tables. I star
 ```text
 .
 ├── README.md
-├── logbook_parser.py           # Main extraction script
-├── requirements.txt            # Python dependencies
-├── .gitignore                  # Excludes generated and private files
+├── logbook_parser.py
+├── requirements.txt
+├── .gitignore
 └── examples/
-    └── sample_logbook.txt     # Synthetic example data
+    └── sample_logbook.txt
 ```
 
 ## Run Locally
@@ -118,30 +165,12 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Run the script with the sample log:
+Run the parser using the synthetic sample data:
 
 ```bash
 python logbook_parser.py --input examples/sample_logbook.txt --output health_check_records.xlsx
 ```
 
-The output is an Excel file with a `health_checks` sheet and three columns:
+The Excel output contains a `health_checks` sheet with **Check Date**, **Health Check Type**, and **Matched Text**.
 
-| Check Date | Health Check Type | Matched Text |
-|---|---|---|
-| 2026-01-15 | WS | WS Health Check |
-| 2026-02-03 | RS | RS healthy check completed. |
-
-*All example records are synthetic.*
-
----
-
-## Scope & Limitations
-
-This is a **small automation tool**, not a complete equipment monitoring system.
-
-- The script finds **health check mentions**, which may include planned or canceled work.
-- Date matching follows rules based on the log layout and may not work for every format.
-- Multiple checks of the same component on the same date are merged into one row.
-- Extraction accuracy and time savings have not been formally measured.
-
-No internal maintenance logs or proprietary equipment data are included.
+**Scope and limitations:** This is a focused text-processing example, not a validated equipment monitoring system. It detects mentions, not confirmed completed checks; date matching depends on the log layout; and same-date component deduplication may hide repeat events. Extraction accuracy and time savings have not been formally measured. All sample records are synthetic, and no private maintenance logs are included.
