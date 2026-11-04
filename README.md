@@ -10,10 +10,10 @@
 
 | Workstream | Core Challenge | Engineering Response | Outcome |
 |---|---|---|---|
-| **P1 — Problem Definition** | Years of maintenance notes are difficult to search and compare | Defined essential fields for health check tracking | A consistent record structure |
-| **P2 — Record Extraction** | Different wording and date layouts make manual searches unreliable | Combined keyword rules, fuzzy matching, and date lookup | Automatically identified health check mentions |
-| **P3 — Data Standardization** | Raw matches use different component names and can repeat | Classified WS/RS checks and consolidated repeated date–type matches | A structured, reviewable dataset |
-| **P4 — Report Automation** | Turning log notes into spreadsheets requires repetitive manual work | Built a Python-to-Excel export workflow | Reusable records for maintenance-history reviews |
+| **[P1 — Problem Definition](#p1--problem-definition)** | Years of maintenance notes are difficult to search and compare | Defined essential fields for health check tracking | A consistent record structure |
+| **[P2 — Record Extraction](#p2--record-extraction)** | Different wording and date layouts make manual searches unreliable | Combined keyword rules, fuzzy matching, and date lookup | Automatically identified health check mentions |
+| **[P3 — Data Standardization](#p3--data-standardization)** | Raw matches use different component names and can repeat | Classified WS/RS checks and consolidated repeated date–type matches | A structured, reviewable dataset |
+| **[P4 — Report Automation](#p4--report-automation)** | Turning log notes into spreadsheets requires repetitive manual work | Built a Python-to-Excel export workflow | Reusable records for maintenance-history reviews |
 
 ---
 
@@ -29,6 +29,15 @@ flowchart LR
 ```
 
 **Storyline:** define useful fields → extract relevant maintenance mentions → standardize the records → export results for review.
+
+---
+
+## Key Engineering Takeaways
+
+- **Workflow automation:** Replaced manual searching and spreadsheet transcription with a reusable Python script.
+- **Unstructured data processing:** Linked fuzzy text matching, date lookup, classification, and duplicate handling in one pipeline.
+- **Practical output:** Produced structured Excel records that support faster inspection and future analysis.
+
 
 ---
 
@@ -126,13 +135,6 @@ flowchart LR
 
 ---
 
-## Key Engineering Takeaways
-
-- **Workflow automation:** Replaced manual searching and spreadsheet transcription with a reusable Python script.
-- **Unstructured data processing:** Linked fuzzy text matching, date lookup, classification, and duplicate handling in one pipeline.
-- **Practical output:** Produced structured Excel records that support faster inspection and future analysis.
-
----
 
 ## Tech Stack
 
