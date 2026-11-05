@@ -6,7 +6,7 @@
 
 **Project:** Automated extraction and structuring of equipment maintenance records using Python.
 
-**Focus:** Python Automation · Text Processing · Fuzzy Matching · Data Cleaning · Excel Reporting
+**Focus:** Python Automation · Text Processing · Fuzzy Matching · Data Cleaning
 
 > **Disclaimer:** This portfolio provides a high-level overview of selected engineering work. No proprietary source code, confidential data, internal documents, equipment identifiers, or system configurations from ASML are included in the current repository.
 
