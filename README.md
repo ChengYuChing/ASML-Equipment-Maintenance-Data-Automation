@@ -25,16 +25,57 @@
 
 ## End-to-End System Overview
 
+The workflow transforms inconsistent, text-based maintenance notes into standardized, reviewable Excel records. Each stage has a distinct responsibility, from finding relevant mentions to preparing the final report.
+
 ```mermaid
-flowchart LR
-    A["Text Maintenance Logs"] --> B["P2 · Extract Health Check Mentions"]
-    B --> C["Find Associated Dates"]
-    C --> D["P3 · Standardize WS / RS Records"]
-    D --> E["Remove Repeated Matches"]
-    E --> F["P4 · Export Excel Report"]
+flowchart TD
+    A["Input: Text Maintenance Logs<br/>Unstructured notes, variable wording and dates"]
+
+    subgraph P2["P2 — Record Extraction"]
+        direction TB
+        B["1. Detect health-check mentions<br/>Keyword rules + RapidFuzz"]
+        C["2. Associate a date<br/>Regular expressions + nearby layout rules"]
+        B --> C
+    end
+
+    subgraph P3["P3 — Data Standardization"]
+        direction TB
+        D["3. Classify the component<br/>Wafer Stage (WS) / Reticle Stage (RS)"]
+        E["4. Expand combined mentions<br/>One WS record and one RS record when both appear"]
+        F["5. Consolidate repeated matches<br/>Keep first match per date + component"]
+        D --> E --> F
+    end
+
+    subgraph P4["P4 — Report Automation"]
+        direction TB
+        G["6. Build structured records<br/>Date | Component | Matched source text"]
+        H["7. Export an Excel report<br/>Pandas + OpenPyXL; formatted dates"]
+        G --> H
+    end
+
+    A --> B
+    C --> D
+    F --> G
+    H --> I["Output: Reviewable Maintenance-History Report<br/>Sortable and filterable Excel records"]
 ```
 
-**Storyline:** define useful fields → extract relevant maintenance mentions → standardize the records → export results for review.
+**P1 — Problem Definition (before processing):** The required output fields were defined first: **check date**, **component type**, and **matched source text**. These fields determine what the subsequent extraction and reporting steps must produce.
+
+### How to Read the Pipeline
+
+| Stage | Input | Processing logic | Output |
+|---|---|---|---|
+| **P1 — Define requirements** | Maintenance-review needs | Select the essential fields for tracking health-check mentions | Date, component, and source-text schema |
+| **P2 — Find records** | Raw text logs | Match health-check wording, including common spelling variations, then associate nearby dates | Candidate mentions with associated dates |
+| **P3 — Standardize records** | Candidate mentions | Normalize WS/RS labels, separate combined mentions, and retain the first date–component match | Consistent, consolidated records |
+| **P4 — Deliver report** | Standardized records | Organize records and write a formatted Excel file | Report for maintenance-history review |
+
+**Example (illustrative only):** A log line saying `2025-04-10: WS and RS health checks` can produce two records — `2025-04-10 | WS` and `2025-04-10 | RS` — with the matched source text retained for review.
+
+**Important scope:** This is a **record-extraction and reporting pipeline**, not an equipment-diagnostics or failure-prediction system. It detects health-check *mentions*, not independently verified completed events. Date association depends on the log layout, and grouping by date + component can merge separate events on the same day.
+
+**Storyline:** define the output → find health-check mentions → associate dates → standardize and consolidate records → export Excel.
+
 
 ---
 
